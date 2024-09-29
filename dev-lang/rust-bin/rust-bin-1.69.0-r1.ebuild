@@ -233,10 +233,6 @@ multilib_src_install() {
 			elog "Applying fix for undefined reference to __builtin_copysignq in ARM64 libcompiler_builtins-*.rlib"
 			$(tc-getCC) ${CPPFLAGS} ${CFLAGS} -c -o "${T}/__builtin_copysignq.o" -x c - <<<"_Float128 __builtin_copysignq(_Float128 x,_Float128 y){return __builtin_copysignf128(x, y);}" || die
 			$(tc-getAR) r "${ED}/opt/${P}/lib/rustlib/aarch64-unknown-linux-gnu/lib"/libcompiler_builtins-*.rlib "${T}/__builtin_copysignq.o" || die
-		else
-			eerror "ARM64 libcompiler_builtins-*.rlib no longer contains undefined reference to __builtin_copysignq"
-			eerror "Workaround code in ebuild should be deleted"
-			die "ARM64 libcompiler_builtins-*.rlib no longer contains undefined reference to __builtin_copysignq"
 		fi
 	fi
 }
